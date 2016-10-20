@@ -19,18 +19,23 @@ module.exports = function(paths = {}) {
     var watch = {},
         watchTask = []
 
+
+    var root = (name) => {
+        return (paths.root) ? path.resolve(paths.root, name): path.resolve('./app', name)
+    }
+
     var pathsJsBefore = [
         path.resolve(__dirname, '..', 'vue/dist/vue.min.js'),
-        path.resolve(__dirname, '..',  'jquery/dist/jquery.min.js'),
+        path.resolve(__dirname, '..', 'jquery/dist/jquery.min.js'),
         path.resolve(__dirname, '..', 'cupcoffee-client/src/cupcoffee.js')
     ]
 
     var pathsJsAfter = [
-        './app/libs/*.js',
-        './app/services/*.js',
-        './app/controllers/*.js',
-        './app/config/*.js',
-        './app/app.js'
+        root('libs/*.js'),
+        root('services/*.js'),
+        root('controllers/*.js'),
+        root('config/*.js'),
+        root('app/*.js')
     ]
 
     if (paths && paths.js && paths.js.input) {
