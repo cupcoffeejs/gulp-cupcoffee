@@ -130,7 +130,7 @@ module.exports = function(paths = {}) {
         gulp.task('css', function() {
             gulp.src(paths.css.input)
                 .pipe(cleanCSS())
-                .pipe(concat('styles.css'))
+                .pipe(concat(paths.css.filename || 'styles.css'))
                 .pipe(gulp.dest(output('css')))
         });
 
@@ -143,7 +143,7 @@ module.exports = function(paths = {}) {
         gulp.task('js', function() {
             gulp.src(paths.js.input)
                 .pipe(plumber())
-                .pipe(concat('scripts.js'))
+                .pipe(concat(paths.js.filename || 'scripts.js'))
                 .pipe(sourcemaps.write())
                 .pipe(gulp.dest(output('js')))
                 .pipe(livereload());
