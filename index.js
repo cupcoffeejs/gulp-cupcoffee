@@ -21,7 +21,7 @@ module.exports = function(paths = {}) {
 
 
     var root = (name) => {
-        return (paths.root) ? path.resolve(paths.root, name): path.resolve('./app', name)
+        return (paths.root) ? path.resolve(paths.root, name) : path.resolve('./app', name)
     }
 
     var pathsJsBefore = [
@@ -72,6 +72,15 @@ module.exports = function(paths = {}) {
         return true;
     }
 
+    if (active('copy')) {
+        watchTask.push('copy')
+
+        gulp.task('copy', function() {
+            paths.copy.map((copy) => {
+              gulp.src(copy.input).pipe(gulp.dest(copy.output))
+            })
+        });
+    }
 
     if (active('fonts')) {
         watch.fonts = './assets/fonts/**/*';
