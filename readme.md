@@ -52,4 +52,17 @@ var gulp = cupcoffee({
     ],
     output: "./www/scripts" // default ./public/js
   },
-  images: false, //Nothing will be 
+  images: false //Nothing will be
+})
+```
+
+The available components are:
+  - fonts
+  - images
+  - css
+  - js
+  - less
+  - stylus
+  - views (pug files)
+
+The **livereload** is configured to know more about it see [https://www.npmjs.com/package/gulp-livereload](https://www.npmjs.com/package/gulp-livereload)

@@ -58,6 +58,7 @@ module.exports = function(paths = {}) {
         }
     }
 
+
     var active = (item) => {
         if (!paths[item]) {
             if (pathExists.sync('./assets/' + item) && paths[item] !== false) {
@@ -83,7 +84,7 @@ module.exports = function(paths = {}) {
     }
 
     if (active('fonts')) {
-        watch.fonts = './assets/fonts/**/*';
+        watch.fonts = root('fonts/**/*');
         watchTask.push('fonts')
 
         gulp.task('fonts', function() {
@@ -93,7 +94,7 @@ module.exports = function(paths = {}) {
     }
 
     if (active('images')) {
-        watch.images = './assets/images/**/*';
+        watch.images = root('images/**/*');
         watchTask.push('images')
 
         gulp.task('images', function() {
@@ -103,7 +104,7 @@ module.exports = function(paths = {}) {
     }
 
     if (active('less')) {
-        watch.stylus = './assets/less/**/*';
+        watch.less = root('less/**/*');
         watchTask.push('less');
 
         gulp.task('less', function() {
@@ -117,7 +118,7 @@ module.exports = function(paths = {}) {
     }
 
     if (active('stylus')) {
-        watch.stylus = './assets/stylus/**/*';
+        watch.stylus = root('stylus/**/*');
         watchTask.push('stylus');
 
         gulp.task('stylus', function() {
@@ -133,7 +134,7 @@ module.exports = function(paths = {}) {
     }
 
     if (active('css')) {
-        watch.styles = './assets/css/**/*';
+        watch.css = root('css/**/*');
         watchTask.push('css')
 
         gulp.task('css', function() {
@@ -146,7 +147,7 @@ module.exports = function(paths = {}) {
     }
 
     if (active('js')) {
-        watch.styles = './assets/js/**/*';
+        watch.js = root('js/**/*');
         watchTask.push('js')
 
         gulp.task('js', function() {
@@ -160,7 +161,7 @@ module.exports = function(paths = {}) {
     }
 
     if (active('views')) {
-        watch.styles = './assets/views/**/*';
+        watch.views = root('views/**/*');
         watchTask.push('views')
 
         gulp.task('views', function buildHTML() {

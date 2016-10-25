@@ -1,6 +1,6 @@
 {
   "name": "gulp-cupcoffee",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Gulp To CupCoffee Client Framework",
   "main": "index.js",
   "scripts": {
