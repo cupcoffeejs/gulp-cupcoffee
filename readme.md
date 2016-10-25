@@ -41,28 +41,15 @@ gulp.task('default', ['cupcoffee', 'custom']);
 You configure the Automation or canceled as follows:
 
 ```javascript
-var gulp = cupcoffee({  
+var gulp = cupcoffee({
+  root: "./application", //default ./app
+  output: "./www", //default ./public
   js: {
     //Adding Components to scripts.js
     input: [
       './bower_components/bootstrap/dist/js/bootstrap.min.js',
       './myLib/lib.js',
-    ]
+    ],
+    output: "./www/scripts" // default ./public/js
   },
-  images: false, //Nothing will be done with images
-  views: {
-    output: './public/' //the output of views will be /public/*.html
-  }
-})
-```
-
-The available components are:
- - fonts
- - images
- - css
- - js
- - less
- - stylus
- - views (pug files)
-
-The **livereload** is configured to know more about it see [https://www.npmjs.com/package/gulp-livereload](https://www.npmjs.com/package/gulp-livereload)
+  images: false, //Nothing will be 
