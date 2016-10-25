@@ -35,7 +35,7 @@ module.exports = function(paths = {}) {
         root('services/*.js'),
         root('controllers/*.js'),
         root('config/*.js'),
-        root('app/*.js')
+        root('app.js')
     ]
 
     if (paths && paths.js && paths.js.input) {
