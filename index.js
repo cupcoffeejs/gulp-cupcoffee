@@ -133,7 +133,7 @@ module.exports = function(paths = {}) {
         watchTask.push('stylus');
 
         gulp.task('', function() {
-            gulp.src(paths..input)
+            gulp.src(paths.input)
                 .pipe(plumber())
                 .pipe(({
                     'include css': true
