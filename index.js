@@ -50,14 +50,14 @@ module.exports = function(paths = {}) {
         }
     }
 
-    var output = (name) => {
+    var output = (name, ext) => {
         if (paths[name].output) {
             return paths[name].output;
         } else {
             if (name == 'stylus' || name == 'less') {
                 name = 'css';
             }
-            return path.resolve(paths.output || './public', name)
+            return path.resolve(paths.output || './public', name, ext)
         }
     }
 
@@ -176,7 +176,7 @@ module.exports = function(paths = {}) {
         watchTask.push('views')
 
         gulp.task('views', function buildHTML() {
-            gulp.src(output('views') + '/*.html')
+            gulp.src(output('views/**/*.{pug,jade}') + '/*.html')
                 .pipe(clean())
 
             gulp.src(paths.views.input)
