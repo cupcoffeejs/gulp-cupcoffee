@@ -50,14 +50,14 @@ module.exports = function(paths = {}) {
         }
     }
 
-    var output = (name, ext) => {
+    var output = (name) => {
         if (paths[name].output) {
             return paths[name].output;
         } else {
             if (name == 'stylus' || name == 'less') {
                 name = 'css';
             }
-            return path.resolve(paths.output || './public', name, ext)
+            return path.resolve(paths.output || './public', name)
         }
     }
 
