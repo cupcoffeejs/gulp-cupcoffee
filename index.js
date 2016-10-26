@@ -1,6 +1,6 @@
 var gulp = require('gulp');
 var watch = require('gulp-watch');
-var stylus = require('gulp-stylus');
+var = require('gulp-');
 var less = require('gulp-less');
 var minify = require('gulp-minify');
 var concat = require('gulp-concat');
@@ -54,7 +54,18 @@ module.exports = function(paths = {}) {
         if (paths[name].output) {
             return paths[name].output;
         } else {
+            if (name == 'stylus' || name == 'less') {
+                name = 'css';
+            }
             return path.resolve(paths.output || './public', name)
+        }
+    }
+
+    var assets = (name) => {
+        if (paths.assets) {
+            return path.resolve(paths.assets, name, '**/*');
+        } else {
+            return path.resolve('./assets', name, '**/*');
         }
     }
 
@@ -78,13 +89,13 @@ module.exports = function(paths = {}) {
 
         gulp.task('copy', function() {
             paths.copy.map((copy) => {
-              gulp.src(copy.input).pipe(gulp.dest(copy.output))
+                gulp.src(copy.input).pipe(gulp.dest(copy.output))
             })
         });
     }
 
     if (active('fonts')) {
-        watch.fonts = root('fonts/**/*');
+        watch.fonts = assets('fonts');
         watchTask.push('fonts')
 
         gulp.task('fonts', function() {
@@ -94,7 +105,7 @@ module.exports = function(paths = {}) {
     }
 
     if (active('images')) {
-        watch.images = root('images/**/*');
+        watch.images = assets('images');
         watchTask.push('images')
 
         gulp.task('images', function() {
@@ -104,7 +115,7 @@ module.exports = function(paths = {}) {
     }
 
     if (active('less')) {
-        watch.less = root('less/**/*');
+        watch.less = assets('less');
         watchTask.push('less');
 
         gulp.task('less', function() {
@@ -118,23 +129,23 @@ module.exports = function(paths = {}) {
     }
 
     if (active('stylus')) {
-        watch.stylus = root('stylus/**/*');
+        watch.stylus = pathExists(assets('styl')) ? assets('styl') : assets('stylus');
         watchTask.push('stylus');
 
-        gulp.task('stylus', function() {
-            gulp.src(paths.stylus.input)
+        gulp.task('', function() {
+            gulp.src(paths..input)
                 .pipe(plumber())
-                .pipe(stylus({
+                .pipe(({
                     'include css': true
                 }))
                 .pipe(cleanCSS())
-                .pipe(gulp.dest(output('stylus')))
+                .pipe(gulp.dest(output('')))
                 .pipe(livereload());
         });
     }
 
     if (active('css')) {
-        watch.css = root('css/**/*');
+        watch.css = assets('css');
         watchTask.push('css')
 
         gulp.task('css', function() {
@@ -147,7 +158,7 @@ module.exports = function(paths = {}) {
     }
 
     if (active('js')) {
-        watch.js = root('js/**/*');
+        watch.js = assets('js');
         watchTask.push('js')
 
         gulp.task('js', function() {
@@ -161,7 +172,7 @@ module.exports = function(paths = {}) {
     }
 
     if (active('views')) {
-        watch.views = root('views/**/*');
+        watch.views = assets('views');
         watchTask.push('views')
 
         gulp.task('views', function buildHTML() {
