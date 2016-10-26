@@ -1,6 +1,6 @@
 var gulp = require('gulp');
 var watch = require('gulp-watch');
-var = require('gulp-');
+var stylus = require('gulp-stylus');
 var less = require('gulp-less');
 var minify = require('gulp-minify');
 var concat = require('gulp-concat');
