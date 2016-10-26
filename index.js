@@ -172,7 +172,7 @@ module.exports = function(paths = {}) {
     }
 
     if (active('views')) {
-        watch.views = assets('views');
+        watch.views = path.resolve(root('views'), 'templates')
         watchTask.push('views')
 
         gulp.task('views', function buildHTML() {
