@@ -21,7 +21,10 @@ module.exports = function(paths = {}) {
 
 
     var root = (name) => {
-        return (paths.root) ? path.resolve(paths.root, name) : path.resolve('./app', name)
+        if (name) {
+            return (paths.root) ? path.resolve(paths.root, name) : path.resolve('./app', name)
+        } else
+            return paths.root || './app'
     }
 
     var pathsJsBefore = [
@@ -99,7 +102,7 @@ module.exports = function(paths = {}) {
         watchTask.push('fonts')
 
         gulp.task('fonts', function() {
-            gulp.src(paths.fonts.input)
+            gulp.src(paths.fonts.input || assets('fonts'))
                 .pipe(gulp.dest(output('fonts')))
         });
     }
@@ -109,7 +112,7 @@ module.exports = function(paths = {}) {
         watchTask.push('images')
 
         gulp.task('images', function() {
-            gulp.src(paths.images.input)
+            gulp.src(paths.images.input || assets('images'))
                 .pipe(gulp.dest(output('images')))
         });
     }
@@ -119,7 +122,7 @@ module.exports = function(paths = {}) {
         watchTask.push('less');
 
         gulp.task('less', function() {
-            gulp.src(paths.less.input)
+            gulp.src(paths.less.input || assets('less'))
                 .pipe(plumber())
                 .pipe(less({
                     paths: [path.join(__dirname, 'less', 'includes')]
@@ -132,14 +135,14 @@ module.exports = function(paths = {}) {
         watch.stylus = pathExists(assets('styl')) ? assets('styl') : assets('stylus');
         watchTask.push('stylus');
 
-        gulp.task('', function() {
-            gulp.src(paths.input)
+        gulp.task('stylus', function() {
+            gulp.src(paths.stylus.input || watch.stylus)
                 .pipe(plumber())
                 .pipe(({
                     'include css': true
                 }))
                 .pipe(cleanCSS())
-                .pipe(gulp.dest(output('')))
+                .pipe(gulp.dest(output('stylus')))
                 .pipe(livereload());
         });
     }
@@ -149,7 +152,7 @@ module.exports = function(paths = {}) {
         watchTask.push('css')
 
         gulp.task('css', function() {
-            gulp.src(paths.css.input)
+            gulp.src(paths.css.input || assets('css'))
                 .pipe(cleanCSS())
                 .pipe(concat(paths.css.filename || 'styles.css'))
                 .pipe(gulp.dest(output('css')))
@@ -158,7 +161,7 @@ module.exports = function(paths = {}) {
     }
 
     if (active('js')) {
-        watch.js = assets('js');
+        watch.js = path.resolve(root(), '**/*.js');
         watchTask.push('js')
 
         gulp.task('js', function() {
@@ -179,7 +182,7 @@ module.exports = function(paths = {}) {
             gulp.src(output('views') + '/*.html')
                 .pipe(clean())
 
-            gulp.src(paths.views.input)
+            gulp.src(paths.views.input || path.resolve(root('views'), 'templates/*.{pug,jade}'))
                 .pipe(plumber())
                 .pipe(pug())
                 .pipe(gulp.dest(output('views')))
@@ -189,6 +192,7 @@ module.exports = function(paths = {}) {
 
     gulp.task('watch', function() {
         livereload.listen();
+        console.log(watch)
         autowatch(gulp, watch);
     });
 
