@@ -172,11 +172,11 @@ module.exports = function(paths = {}) {
     }
 
     if (active('views')) {
-        watch.views = path.resolve(root('views'), 'templates/*.{pug,jade}')
+        watch.views = path.resolve(root('views'), '**/*.{pug,jade}')
         watchTask.push('views')
 
         gulp.task('views', function buildHTML() {
-            gulp.src(output('views/**/*.{pug,jade}') + '/*.html')
+            gulp.src(output('views') + '/*.html')
                 .pipe(clean())
 
             gulp.src(paths.views.input)
